@@ -1,0 +1,30 @@
+Ubuntu WSL
+#Install apache2 and php
+- in WSL php won't work unless you start the service
+> sudo service php8.2-fpm start (or restart)
+- use apt install to add any modules needed by the base grocy program. (fileinfo, pdo_sqlite, gd, ctype, intl, zlib, mbstring)
+- the php service needs to be restarted every time you install a module to find the next module you need
+- you need to run ifconfig to get the ipaddress of your WSL. I had to install some network tools to get ifconfig to run. The ip address
+is where you will find the front page of grocy. Mine is currently 172.25.80.236
+
+#Use wget http://addressOfDownload. 
+- Unzip the download into /app/grocy
+# A note about file permissions
+- Not sure if this is strictly necessary, but set all files ownership www-data:www-data (Because I believe my apache accesses
+them as this user. In order to be able to edit them, you need to add your Windows user to whatever group you have set the files
+to be owned by (chmod -aG ...) and also set all of the files to 755 (so that group members can edit them). 
+
+#   The conf file for apahce2 is /etc/apache2/sites-enabled/000-default.conf (or sites-available?)
+#          In this file you change the DocumentRoot to be /app/grocy/public
+- You need to add this to the /etc/apache2/apache2.conf
+<Directory /app/grocy/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+#To setup editing with VSCode
+- In VSCode make sure you have the WSL extension added, and do ctrl+shift+P and type in "WSL:New Window"
+- this will open a new VSCode window attached to the WSL drive. Click on the open location button and put in /app/grocy
+
+ 
