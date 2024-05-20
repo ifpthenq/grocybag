@@ -1,6 +1,6 @@
 <?php require_frontend_packages(['bootstrap-combobox']); ?>
 
-<?php if (! $__env->hasRenderedOnce('8ff83857-e137-47a7-ad4d-1f7392a1d861')): $__env->markAsRenderedOnce('8ff83857-e137-47a7-ad4d-1f7392a1d861'); ?>
+<?php if (! $__env->hasRenderedOnce('12044249-4fda-4fcb-a30b-2e278cefe6a7')): $__env->markAsRenderedOnce('12044249-4fda-4fcb-a30b-2e278cefe6a7'); ?>
 <?php $__env->startPush('componentScripts'); ?>
 <script src="<?php echo e($U('/viewjs/components/productpicker.js', true)); ?>?v=<?php echo e($version); ?>"></script>
 <?php $__env->stopPush(); ?>

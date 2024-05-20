@@ -66,4 +66,9 @@ class BaseService
 	{
 		return PrintService::getInstance();
 	}
+
+	protected function getIdeasboardService()
+	{
+		return IdeasboardService::getInstance();
+	}
 }

@@ -24,8 +24,10 @@
 		var addAnother = $(e.currentTarget).hasClass("add-another");
 
 		Grocy.Api.Post('objects/tasks', jsonData,
+			
 			function(result)
 			{
+				console.log(result);
 				Grocy.EditObjectId = result.created_object_id;
 				Grocy.Components.UserfieldsForm.Save(function()
 				{

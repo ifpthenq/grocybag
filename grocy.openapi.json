@@ -55,6 +55,9 @@
 		},
 		{
 			"name": "Print"
+		},
+		{
+			"name": "Ideasboard"
 		}
 	],
 	"paths": {
@@ -5722,6 +5725,27 @@
 					}
 				}
 			},
+			"Ideasboard":{
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"uri": {
+						"type": "string"
+					},
+					"row_created_timestamp": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
 			"Task": {
 				"type": "object",
 				"properties": {
@@ -5905,7 +5929,9 @@
 					"products_average_price",
 					"quantity_unit_conversions_resolved",
 					"recipes_pos_resolved",
-					"battery_charge_cycles"
+					"battery_charge_cycles",
+					"ideasboards",
+					"ideasboard"
 				]
 			},
 			"ExposedEntityNoListing": {

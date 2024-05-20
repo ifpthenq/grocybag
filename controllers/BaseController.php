@@ -18,6 +18,7 @@ use Grocy\Services\StockService;
 use Grocy\Services\TasksService;
 use Grocy\Services\UserfieldsService;
 use Grocy\Services\UsersService;
+use Grocy\Services\IdeasboardService;
 use DI\Container;
 
 class BaseController
@@ -114,6 +115,11 @@ class BaseController
 	protected function getUsersService()
 	{
 		return UsersService::getInstance();
+	}
+
+	protected function getIdeasboardService()
+	{
+		return IdeasboardService::getInstance();
 	}
 
 	protected function render($response, $viewName, $data = [])

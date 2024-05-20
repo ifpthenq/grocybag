@@ -5,6 +5,8 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteCollectorProxy;
 
+
+
 $app->group('', function (RouteCollectorProxy $group)
 {
 	// System routes
@@ -13,6 +15,13 @@ $app->group('', function (RouteCollectorProxy $group)
 	$group->get('/about', '\Grocy\Controllers\SystemController:About');
 	$group->get('/manifest', '\Grocy\Controllers\SystemController:Manifest');
 	$group->get('/barcodescannertesting', '\Grocy\Controllers\SystemController:BarcodeScannerTesting');
+	
+	//Ideasboard
+	//$group->get('/ideasboard', '\Grocy\Controllers\IdeasboardController:getIdeasBoard');
+	$group->get('/ideasboard', '\Grocy\Controllers\IdeasboardController:getIdeasBoard');
+	$group->get('/ideasboard/{boardId}', '\Grocy\Controllers\IdeasboardController:IdeaSelect');
+	$group->post('/ideasboard/addboard/{boardId}', '\Grocy\Controllers\IdeasboardController:InsertBoard');
+	$group->get('/ideasboard/delete/{boardId}', '\Grocy\Controllers\IdeasboardController:DeleteBoard');
 
 	// Login routes
 	$group->get('/login', '\Grocy\Controllers\LoginController:LoginPage')->setName('login');
@@ -124,6 +133,9 @@ $app->group('', function (RouteCollectorProxy $group)
 	$group->get('/api', '\Grocy\Controllers\OpenApiController:DocumentationUi');
 	$group->get('/manageapikeys', '\Grocy\Controllers\OpenApiController:ApiKeysList');
 	$group->get('/manageapikeys/new', '\Grocy\Controllers\OpenApiController:CreateNewApiKey');
+
+	
+
 });
 
 $app->group('/api', function (RouteCollectorProxy $group)

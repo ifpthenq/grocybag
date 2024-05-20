@@ -2,7 +2,7 @@
 
 <?php require_frontend_packages(['quagga2']); ?>
 
-<?php if (! $__env->hasRenderedOnce('2e4d5cd1-f881-42e7-ab98-2596a81a610d')): $__env->markAsRenderedOnce('2e4d5cd1-f881-42e7-ab98-2596a81a610d'); ?>
+<?php if (! $__env->hasRenderedOnce('5e0355bc-a8dc-4799-8cff-6dbd8ffb160a')): $__env->markAsRenderedOnce('5e0355bc-a8dc-4799-8cff-6dbd8ffb160a'); ?>
 <?php $__env->startPush('componentScripts'); ?>
 <script src="<?php echo e($U('/viewjs/components/barcodescanner.js', true)); ?>?v=<?php echo e($version); ?>"></script>
 <?php $__env->stopPush(); ?>

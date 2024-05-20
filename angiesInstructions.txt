@@ -1,0 +1,101 @@
+Adding a new section
+this took me forever to figure out!!! 
+
+#######################
+# Create a view blade page (the base page for your new section)
+-- create a new file under views (i.e. ideasboard.blade.php)
+-- somewhere on the page, put an "add" button that links to /section/new?embedded (i.e. href="{{ $U('/ideasboard/new?embedded') }}""
+
+#######################
+# Create a view blade for the form 
+-- create a new file under views (i.e. ideasbaordform.blade.php)
+-- this is the form that will pop up when you click the "add" button
+-- put a "save" button on the form that will trigger the database insert action
+
+#######################
+# Create a jquery method to catch the "save" button click action and trigger the insert
+-- Create a js file with the same name as your blade page under viewsjs (i.e. ideasboardform.js)
+-- Every blade page automatically tries to load a js file by the same name, so you don't need to link this js file anywhere in the blade page.
+-- call .serializeJSON to jsonize the form data 
+-- call Grocy.Api.Post('object/{yourentityname}, jsonData,  (i.e. 'objects/ideasboards')
+-- your entity name should match what the table you want to query is named in the database
+-- within Grocy.Api.Post you will also put what page you want to return to after you click the button. 
+
+#######################
+#  Create an SQL file to create your table under migrations
+-- Every time you load grocy it runs any migrations not previously run. So to create the table in the db
+you will need to delete the database (grocy.db in the data directory), and then reload the main grocy login page. This will create the table. 
+-- in the same file where you create the table, also create all the views you will need. (i.e.  CREATE VIEW ideasboard_current AS Select * from ideasboard; to get all the records in this table)
+-- you will also create any supporting tables here like categories etc. 
+
+#######################
+# Add a link to your new section
+-- Edit the default.blade.php page
+-- Add a li that is a link to your new section (i.e. href="{{ $U('/ideasboard') }}"
+
+######################
+# Update the routes
+-- Edit the rootdirectory/routes.php file
+-- You'll need to add whatever your link says (i.e. $group->get(/ideasboard', '\Grocy\Controllers\IdeasboardController:getIdeasBoard);  )
+
+######################
+# Add a controller for your section
+-- this is what is called by the route, and where you will do any pre-processing for your section before calling your view
+-- i.e. IdeasboardController.php
+-- within the controller you will need a function (i.e. getIdeasBoard() ) This is the function you are calling in routes.php
+      -- Use this function to pre-fetch anything from the database that you want to display on the page by default
+      -- you'll use $this->renderPage('$response, 'nameOfYourBladePage', [ list of any data you want to send in ] ); 
+-- within the controller you will also need a function (i.e. InsertBoard) 
+
+#####################
+# Edit grocy.openapi.json
+-- this is where the openapi spefication is
+-- Add entity name to /rootdirectory/grocy.openapi.json "tags" list
+Where "entity" is like 'Batteries' or 'Chores' or 'Ideasboards'
+This should enable /objects/entity to work. 
+-- Add the tag in lowercase letters to the "Exposed Entity" "enum" field (towards the end of the file)
+"ideasboards" (this will match the database table names)
+
+You can also add your own specifications here, if want to do more than just the base insert a row/retrieve all rows/retrieve a single row. 
+But that is outside the scope of this document. 
+
+####################
+# To list all the entered data
+###################
+# Edit the Serivce file
+ -- (i.e. IdeasboardService.php) 
+-- create a function to call up the view you created in your sql file. (i.e. $ideasboards = $this->getDatabase()->ideasboards_current() inside function GetCurrent())
+-- the service file is only for retrieving data, this isn't where you do a remove operation
+
+#####################
+# Edit BaseController.php
+-- the service file extends BaseSerivce which has a default "getInstance()", so you don't need to manually specify getInstance() (like in tasks) or you can
+put in your own version (like in chores) where you can specify which classname to get
+-- but you DO need to put in protected function getYourNameService(){ return YourService::getInstance(); } inside BaseController.php (so that you can call it from the controller). 
+-- you also need to add a use statement at the top of the file (use Grocy\Services\YourService;)
+
+#####################
+# Edit the Controller
+-- Put the code to call the up the db records whereever you want to pre-process data before loading your view
+-- use $this->getWhateverService()=>GetCurrent(); (where whatever service is the name of your server class, and GetCurrent is the name of the function where you call the view. 
+-- you could also call these views directly from the controller with $this->getDatabase()->viewOrTableYouWant->orderBy('name', 'COLLATE NOCASE'); I'm honestly not sure
+why the added complexity. 
+-- return your results using the return statement like return $this->renderPage($response, 'pageYouWantToCall', [ 'varName' => $this->getWhateverService()->GetCurrent(); ]);
+
+#####################
+# Edit the Blade page
+- within the blade page, your results will be in $varName (from example above). Each member will be $varName->member (i.e. $tasks->done or {{ $tasks->name }}. Use strings inside {{}}. 
+
+How it works: 
+Grocy loads the default blade page. Every link calls to routes to get the controller and the function name. The function calls 
+another blade page which contains @sections, and blade swaps out the @content part of the default page with these @sections. 
+Each blade page attempts to autoload a js by the same name. The js is where the click events are specified for buttons within that page. 
+The click event calls Grocy.Api.Post, which is in grocy.js. 
+Grocy.Api.Post -> calls "add object" in GenericEntityApiController. 
+AddObject calls IsValidExposedEntity in GenericEntityApiController
+IsValidExposedEntity calls openApiSpec in /rootdirectory/grocy.openapi.js
+if its returned as a valid API (because it found it in the json specification) then it calls the DatabaseService file
+and finally inputs the data into the sqlite db. 
+
+
+

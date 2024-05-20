@@ -1,4 +1,4 @@
-<?php if (! $__env->hasRenderedOnce('72eacd4c-4a69-4cef-9667-a0c3aa6e7106')): $__env->markAsRenderedOnce('72eacd4c-4a69-4cef-9667-a0c3aa6e7106'); ?>
+<?php if (! $__env->hasRenderedOnce('5ad0bb45-9ec4-4ef3-bb90-77104eace54b')): $__env->markAsRenderedOnce('5ad0bb45-9ec4-4ef3-bb90-77104eace54b'); ?>
 <?php $__env->startPush('componentScripts'); ?>
 <script src="<?php echo e($U('/viewjs/components/productamountpicker.js', true)); ?>?v=<?php echo e($version); ?>"></script>
 <?php $__env->stopPush(); ?>

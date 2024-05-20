@@ -74,6 +74,7 @@ class GenericEntityApiController extends BaseApiController
 
 	public function DeleteObject(Request $request, Response $response, array $args)
 	{
+		
 		if ($args['entity'] == 'shopping_list' || $args['entity'] == 'shopping_lists')
 		{
 			User::checkPermission($request, User::PERMISSION_SHOPPINGLIST_ITEMS_DELETE);

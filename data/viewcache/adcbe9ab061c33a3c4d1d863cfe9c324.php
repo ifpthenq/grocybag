@@ -1,6 +1,6 @@
 <?php require_frontend_packages(['chartjs']); ?>
 
-<?php if (! $__env->hasRenderedOnce('0166b7a3-a38d-4227-9026-bd7402cce77d')): $__env->markAsRenderedOnce('0166b7a3-a38d-4227-9026-bd7402cce77d'); ?>
+<?php if (! $__env->hasRenderedOnce('ed0af19f-4752-4e16-bef0-4052ab9b8bd7')): $__env->markAsRenderedOnce('ed0af19f-4752-4e16-bef0-4052ab9b8bd7'); ?>
 <?php $__env->startPush('componentScripts'); ?>
 <script src="<?php echo e($U('/viewjs/components/productcard.js', true)); ?>?v=<?php echo e($version); ?>"></script>
 <?php $__env->stopPush(); ?>

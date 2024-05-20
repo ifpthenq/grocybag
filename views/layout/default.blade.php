@@ -449,6 +449,18 @@
 						</li>
 					</ul>
 				</li>
+				<div class="nav-item-divider"></div>
+				<li class="nav-item nav-item-sidebar permission-STOCK_INVENTORY @if($viewName == 'ideasboard') active-page @endif"
+					data-toggle="tooltip"
+					data-placement="right"
+					title="IdeasBoard">
+					<a class="nav-link discrete-link"
+						href="{{ $U('/ideasboard') }}">
+						<i class="fa-solid fa-fw fa-list"></i>
+						<span class="nav-link-text">IdeasBoard</span>
+					</a>
+				</li>
+
 			</ul>
 
 			<ul class="navbar-nav sidenav-toggler">

@@ -90,6 +90,7 @@ class TasksController extends BaseController
 
 	public function TaskEditForm(Request $request, Response $response, array $args)
 	{
+		
 		if ($args['taskId'] == 'new')
 		{
 			return $this->renderPage($response, 'taskform', [

@@ -13,7 +13,8 @@ is where you will find the front page of grocy. Mine is currently 172.25.80.236
 - Not sure if this is strictly necessary, but set all files ownership www-data:www-data (Because I believe my apache accesses
 them as this user. In order to be able to edit them, you need to add your Windows user to whatever group you have set the files
 to be owned by (chmod -aG ...) and also set all of the files to 755 (so that group members can edit them). 
-
+> chown -R www-data:www-data ./*
+> chmod -R 775 ./*
 #   The conf file for apahce2 is /etc/apache2/sites-enabled/000-default.conf (or sites-available?)
 #          In this file you change the DocumentRoot to be /app/grocy/public
 - You need to add this to the /etc/apache2/apache2.conf
